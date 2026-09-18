@@ -2,7 +2,7 @@ apiVersion: v2
 name: apache-web
 description: A minimal Apache HTTP Server (httpd) chart for NKP GitOps
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "2.4"
 keywords:
   - apache
