@@ -16,9 +16,6 @@ spec:
         namespace: test-project-001-lhcgr
       reconcileStrategy: Revision
   # Where the actual Apache pods/service get created.
-  targetNamespace: apache-web
-  install:
-    createNamespace: true
   values:
     replicaCount: 2
     service:
