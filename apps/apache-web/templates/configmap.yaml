@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "apache-web.fullname" . }}-htdocs
+  labels:
+    {{- include "apache-web.labels" . | nindent 4 }}
+data:
+  index.html: |
+{{ .Values.customIndexHtml | indent 4 }}

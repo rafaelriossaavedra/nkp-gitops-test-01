@@ -1,0 +1,34 @@
+# Tells Flux to render/install the chart found at apps/apache-web in the
+# GitRepository above, and keep it reconciled (i.e. "deployed automatically").
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: apache-web
+  namespace: kommander-workspaces
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: ./apps/apache-web
+      sourceRef:
+        kind: GitRepository
+        name: apache-web-source
+        namespace: kommander-workspaces
+      reconcileStrategy: Revision
+  # Where the actual Apache pods/service get created.
+  targetNamespace: apache-web
+  install:
+    createNamespace: true
+  values:
+    replicaCount: 2
+    service:
+      type: ClusterIP
+      port: 80
+    customIndexHtml: |
+      <!DOCTYPE html>
+      <html>
+        <head><title>Apache on NKP</title></head>
+        <body>
+          <h1>Hello from Apache, deployed via NKP GitOps!</h1>
+        </body>
+      </html>

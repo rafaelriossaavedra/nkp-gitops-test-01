@@ -1,0 +1,21 @@
+# Tells Flux (used by NKP GitOps) where the chart source lives.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: apache-web-source
+  # This must be a namespace NKP is watching for GitOps resources -
+  # typically the target Workspace's namespace, e.g. <workspace-name>.
+  namespace: kommander-workspaces
+spec:
+  interval: 1m
+  url: https://github.com/<your-org>/<your-repo>.git
+  ref:
+    branch: main
+  # For private repos, reference a secret containing credentials.
+  # Create it with:
+  #   kubectl create secret generic apache-web-git-auth \
+  #     --namespace kommander-workspaces \
+  #     --from-literal=username=<git-username> \
+  #     --from-literal=password=<git-token-or-app-password>
+  # secretRef:
+  #   name: apache-web-git-auth

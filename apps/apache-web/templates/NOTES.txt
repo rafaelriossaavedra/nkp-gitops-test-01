@@ -1,0 +1,8 @@
+Apache web server "{{ include "apache-web.fullname" . }}" has been deployed.
+
+Check status:
+  kubectl get pods -l app.kubernetes.io/instance={{ .Release.Name }} -n {{ .Release.Namespace }}
+
+Port-forward to test locally:
+  kubectl port-forward svc/{{ include "apache-web.fullname" . }} 8080:{{ .Values.service.port }} -n {{ .Release.Namespace }}
+  curl http://localhost:8080

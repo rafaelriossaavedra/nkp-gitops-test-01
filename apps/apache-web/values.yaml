@@ -1,0 +1,61 @@
+replicaCount: 2
+
+image:
+  repository: httpd
+  tag: "2.4"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: "nginx"
+  annotations: {}
+  hosts:
+    - host: apache.example.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 250m
+    memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Simple default page so the deployment shows something meaningful.
+# Override this in your GitOps values file per-environment.
+customIndexHtml: |
+  <!DOCTYPE html>
+  <html>
+    <head><title>Apache on NKP</title></head>
+    <body>
+      <h1>Hello from Apache, deployed via NKP GitOps!</h1>
+    </body>
+  </html>
