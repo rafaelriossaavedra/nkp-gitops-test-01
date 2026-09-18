@@ -1,21 +1,17 @@
-# Tells Flux (used by NKP GitOps) where the chart source lives.
+# This resource already exists in your cluster - NKP created it when you
+# added the repository via the UI. Kept here for reference only; you do
+# NOT need to (re)apply this file. Shown as-is from `kubectl get gitrepositories -A`:
+#
+#   NAMESPACE                NAME                 URL
+#   test-project-001-lhcgr   nkp-gitops-test-01   https://github.com/rafaelriossaavedra/nkp-gitops-test-01
+#
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: apache-web-source
-  # This must be a namespace NKP is watching for GitOps resources -
-  # typically the target Workspace's namespace, e.g. <workspace-name>.
-  namespace: kommander-workspaces
+  name: nkp-gitops-test-01
+  namespace: test-project-001-lhcgr
 spec:
   interval: 1m
-  url: https://github.com/rafaelriossaavedra/nkp-gitops-test-01.git
+  url: https://github.com/rafaelriossaavedra/nkp-gitops-test-01
   ref:
     branch: main
-  # For private repos, reference a secret containing credentials.
-  # Create it with:
-  #   kubectl create secret generic apache-web-git-auth \
-  #     --namespace kommander-workspaces \
-  #     --from-literal=username=<git-username> \
-  #     --from-literal=password=<git-token-or-app-password>
-  # secretRef:
-  #   name: apache-web-git-auth

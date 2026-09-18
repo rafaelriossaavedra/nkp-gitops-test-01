@@ -4,7 +4,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: apache-web
-  namespace: kommander-workspaces
+  namespace: test-project-001-lhcgr
 spec:
   interval: 5m
   chart:
@@ -12,8 +12,8 @@ spec:
       chart: ./apps/apache-web
       sourceRef:
         kind: GitRepository
-        name: apache-web-source
-        namespace: kommander-workspaces
+        name: nkp-gitops-test-01
+        namespace: test-project-001-lhcgr
       reconcileStrategy: Revision
   # Where the actual Apache pods/service get created.
   targetNamespace: apache-web
@@ -32,3 +32,4 @@ spec:
           <h1>Hello from Apache, deployed via NKP GitOps!</h1>
         </body>
       </html>
+
