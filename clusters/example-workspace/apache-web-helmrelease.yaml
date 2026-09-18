@@ -6,7 +6,7 @@ metadata:
   name: apache-web
   namespace: test-project-001-lhcgr
 spec:
-  interval: 5m
+  interval: 2m
   chart:
     spec:
       chart: ./apps/apache-web
@@ -18,9 +18,6 @@ spec:
   # Where the actual Apache pods/service get created.
   values:
     replicaCount: 2
-    service:
-      type: ClusterIP
-      port: 80
     customIndexHtml: |
       <!DOCTYPE html>
       <html>
